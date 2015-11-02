@@ -22,12 +22,6 @@ Run the vendor:publish command to publish the package config, translations, view
 
 `php artisan vendor:publish`
 
-### Step 3: Update your database
-
-Run your migrations:
-
-`php artisan migrate`
-
 ### Additional steps
 
 Once the package is installed, provided you are logged in, you can visit <your domain>/forum and start defining your category hierarchy using the "Create category" and "Category actions" panels:
