@@ -18,7 +18,7 @@
                     @endcan
 
                     @if (!$thread->trashed())
-                        @can ('moveThreads', $category)
+                        @can ('moveThreadsFrom', $category)
                             <option value="move">{{ trans('forum::general.move') }}</option>
                         @endcan
                         @can ('lockThreads', $category)

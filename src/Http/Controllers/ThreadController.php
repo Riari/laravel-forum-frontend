@@ -80,7 +80,7 @@ class ThreadController extends BaseController
         $category = $thread->category;
 
         $categories = [];
-        if (Gate::allows('moveThreads', $category)) {
+        if (Gate::allows('moveThreadsFrom', $category)) {
             $categories = $this->api('category.index')->parameters(['where' => ['category_id' => null]], ['where' => ['enable_threads' => 1]])->get();
         }
 
