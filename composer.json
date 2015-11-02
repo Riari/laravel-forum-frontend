@@ -1,0 +1,22 @@
+{
+    "name": "riari/laravel-forum-front-end",
+    "description": "A frontend for riari/laravel-forum providing views written with Bootstrap 3",
+    "keywords": ["laravel", "laravel-4", "laravel-5", "forum", "discuss", "frontend"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Riari",
+            "email": "hello@ricko.me"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "riari/laravel-forum": "~3.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Riari\\Forum\\Frontend\\": "src"
+        }
+    },
+    "minimum-stability": "dev"
+}
