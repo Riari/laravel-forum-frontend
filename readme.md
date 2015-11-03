@@ -18,7 +18,7 @@ Then add the service provider to your `config/app.php`:
 
 ### Step 2: Publish the package files
 
-Run the vendor:publish command to publish the package config, translations, views and migrations to your app's directories:
+Run the vendor:publish command to publish the package config and views to your app's directories:
 
 `php artisan vendor:publish`
 
