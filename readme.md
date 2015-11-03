@@ -13,7 +13,7 @@ composer require riari/laravel-forum-frontend
 Then add the service provider to your `config/app.php`:
 
 ```php
-'Riari\Forum\Frontend\Providers\ForumFrontendServiceProvider',
+'Riari\Forum\Frontend\ForumFrontendServiceProvider',
 ```
 
 ### Step 2: Publish the package files
