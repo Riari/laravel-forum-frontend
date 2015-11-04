@@ -52,12 +52,12 @@ class ThreadController extends BaseController
             $category = $this->api('category.fetch', $request->input('category_id'))->get();
 
             if ($category) {
-                Forum::alert('success', 'categories', 'marked_read', 0, ['category' => $category->title]);
+                Forum::alert('success', 'categories.marked_read', 0, ['category' => $category->title]);
                 return redirect($category->route);
             }
         }
 
-        Forum::alert('success', 'threads', 'marked_read');
+        Forum::alert('success', 'threads.marked_read');
         return redirect(config('forum.routing.root'));
     }
 
@@ -98,7 +98,7 @@ class ThreadController extends BaseController
         $category = $this->api('category.fetch', $categoryID)->get();
 
         if (!$category->threadsEnabled) {
-            Forum::alert('warning', 'categories', 'threads_disabled');
+            Forum::alert('warning', 'categories.threads_disabled');
 
             return redirect($category->route);
         }
@@ -119,7 +119,7 @@ class ThreadController extends BaseController
         $category = $this->api('category.fetch', $request->route('category'))->get();
 
         if (!$category->threadsEnabled) {
-            Forum::alert('warning', 'categories', 'threads_disabled');
+            Forum::alert('warning', 'categories.threads_disabled');
 
             return redirect($category->route);
         }
@@ -133,7 +133,7 @@ class ThreadController extends BaseController
 
         $thread = $this->api('thread.store')->parameters($thread)->post();
 
-        Forum::alert('success', 'threads', 'created');
+        Forum::alert('success', 'threads.created');
 
         return redirect($thread->route);
     }
@@ -151,7 +151,7 @@ class ThreadController extends BaseController
 
         $thread = $this->api("thread.{$action}", $id)->parameters($request->all())->patch();
 
-        Forum::alert('success', 'threads', 'updated', 1);
+        Forum::alert('success', 'threads.updated', 1);
 
         return redirect($thread->route);
     }
@@ -177,7 +177,7 @@ class ThreadController extends BaseController
 
         $thread = $this->api('thread.delete', $id)->parameters($parameters)->delete();
 
-        Forum::alert('success', 'threads', 'deleted', 1);
+        Forum::alert('success', 'threads.deleted', 1);
 
         return redirect($permanent ? $thread->category->route : $thread->route);
     }
@@ -200,7 +200,7 @@ class ThreadController extends BaseController
 
         $threads = $this->api('bulk.thread.delete')->parameters($parameters)->delete();
 
-        return $this->bulkActionResponse($threads, 'threads', 'deleted');
+        return $this->bulkActionResponse($threads, 'threads.deleted');
     }
 
     /**
@@ -217,6 +217,6 @@ class ThreadController extends BaseController
 
         $threads = $this->api("bulk.thread.{$action}")->parameters($request->all())->patch();
 
-        return $this->bulkActionResponse($threads, 'threads', 'updated');
+        return $this->bulkActionResponse($threads, 'threads.updated');
     }
 }

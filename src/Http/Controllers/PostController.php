@@ -76,7 +76,7 @@ class PostController extends BaseController
 
         $post->thread->touch();
 
-        Forum::alert('success', 'general', 'reply_added');
+        Forum::alert('success', 'general.reply_added');
 
         return redirect($post->url);
     }
@@ -124,7 +124,7 @@ class PostController extends BaseController
 
         $post = $this->api('post.update', $postID)->parameters($request->only('content'))->patch();
 
-        Forum::alert('success', 'posts', 'updated');
+        Forum::alert('success', 'posts.updated');
 
         return redirect($post->url);
     }
@@ -148,7 +148,7 @@ class PostController extends BaseController
 
         $post = $this->api('post.delete', $id)->parameters($parameters)->delete();
 
-        Forum::alert('success', 'posts', 'deleted', 1);
+        Forum::alert('success', 'posts.deleted', 1);
 
         return redirect($post->thread->route);
     }
@@ -171,7 +171,7 @@ class PostController extends BaseController
 
         $posts = $this->api('bulk.post.delete')->parameters($parameters)->delete();
 
-        return $this->bulkActionResponse($posts, 'posts', 'deleted');
+        return $this->bulkActionResponse($posts, 'posts.deleted');
     }
 
     /**
@@ -188,6 +188,6 @@ class PostController extends BaseController
 
         $threads = $this->api("bulk.post.{$action}")->parameters($request->all())->patch();
 
-        return $this->bulkActionResponse($threads, 'posts', 'updated');
+        return $this->bulkActionResponse($threads, 'posts.updated');
     }
 }

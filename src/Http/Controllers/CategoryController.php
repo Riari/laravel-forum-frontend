@@ -11,7 +11,7 @@ use Riari\Forum\Frontend\Forum;
 class CategoryController extends BaseController
 {
     /**
-     * GET: return an index of categories view (the forum index).
+     * GET: Return an index of categories view (the forum index).
      *
      * @param  Request  $request
      * @return \Illuminate\Http\Response
@@ -28,7 +28,7 @@ class CategoryController extends BaseController
     }
 
     /**
-     * GET: return a category view.
+     * GET: Return a category view.
      *
      * @param  Request  $request
      * @return \Illuminate\Http\Response
@@ -57,7 +57,7 @@ class CategoryController extends BaseController
     {
         $category = $this->api('category.store')->parameters($request->all())->post();
 
-        Forum::alert('success', 'categories', 'created');
+        Forum::alert('success', 'categories.created');
 
         return redirect($category->route);
     }
@@ -75,7 +75,7 @@ class CategoryController extends BaseController
 
         $category = $this->api("category.{$action}", $id)->parameters($request->all())->patch();
 
-        Forum::alert('success', 'categories', 'updated', 1);
+        Forum::alert('success', 'categories.updated', 1);
 
         return redirect($category->route);
     }
@@ -91,7 +91,7 @@ class CategoryController extends BaseController
     {
         $this->api('category.delete', $id)->parameters($request->all())->delete();
 
-        Forum::alert('success', 'categories', 'deleted', 1);
+        Forum::alert('success', 'categories.deleted', 1);
 
         return redirect(config('forum.routing.root'));
     }

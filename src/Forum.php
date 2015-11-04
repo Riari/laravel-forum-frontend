@@ -8,15 +8,14 @@ class Forum
      * Process an alert message to display to the user.
      *
      * @param  string  $type
-     * @param  string  $transFile
      * @param  string  $transKey
      * @param  string  $transCount
      * @return void
      */
-    public static function alert($type, $transFile, $transKey, $transCount = 1, $transParameters = [])
+    public static function alert($type, $transKey, $transCount = 1, $transParameters = [])
     {
         $processAlert = config('forum.frontend.process_alert');
-        $processAlert($type, self::trans($transFile, $transKey, $transCount, $transParameters));
+        $processAlert($type, trans_choice("forum::{$transKey}", $transCount, $transParameters));
     }
 
     /**

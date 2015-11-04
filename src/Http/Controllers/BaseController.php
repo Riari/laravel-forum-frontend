@@ -66,16 +66,15 @@ abstract class BaseController extends Controller implements ReceiverContract
      * Helper: Bulk action response.
      *
      * @param  Collection  $models
-     * @param  string  $transFile
      * @param  string  $transKey
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function bulkActionResponse(Collection $models, $transFile, $transKey)
+    protected function bulkActionResponse(Collection $models, $transKey)
     {
         if ($models->count()) {
-            Forum::alert('success', $transFile, $transKey, $models->count());
+            Forum::alert('success', $transKey, $models->count());
         } else {
-            Forum::alert('warning', 'general', 'invalid_selection');
+            Forum::alert('warning', 'general.invalid_selection');
         }
 
         return redirect()->back();
