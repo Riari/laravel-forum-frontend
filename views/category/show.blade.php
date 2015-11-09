@@ -157,6 +157,7 @@
                 <hr>
                 <div class="text-center">
                     <form action="{{ route('forum.mark-new') }}" method="POST" data-confirm>
+                        {!! csrf_field() !!}
                         {!! method_field('patch') !!}
                         <input type="hidden" name="category_id" value="{{ $category->id }}">
                         <button class="btn btn-default btn-small">{{ trans('forum::categories.mark_read') }}</button>

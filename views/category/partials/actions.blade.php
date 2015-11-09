@@ -36,6 +36,7 @@
             <div class="form-group hidden" data-depends="move">
                 <label for="category-id">{{ trans_choice('forum::categories.category', 1) }}</label>
                 <select name="category_id" id="category-id" class="form-control">
+                    <option value="0">({{ trans('forum::general.none') }})</option>
                     @include ('forum::category.partials.options', ['hide' => $category])
                 </select>
             </div>

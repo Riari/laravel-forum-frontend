@@ -81,7 +81,7 @@ class ThreadController extends BaseController
 
         $categories = [];
         if (Gate::allows('moveThreadsFrom', $category)) {
-            $categories = $this->api('category.index')->parameters(['where' => ['category_id' => null]], ['where' => ['enable_threads' => 1]])->get();
+            $categories = $this->api('category.index')->parameters(['where' => ['category_id' => 0]], ['where' => ['enable_threads' => 1]])->get();
         }
 
         return view('forum::thread.show', compact('categories', 'category', 'thread'));
