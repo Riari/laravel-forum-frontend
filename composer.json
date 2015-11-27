@@ -11,12 +11,11 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "riari/laravel-forum": "~3.0@dev"
+        "riari/laravel-forum": "~3.0"
     },
     "autoload": {
         "psr-4": {
             "Riari\\Forum\\Frontend\\": "src"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
