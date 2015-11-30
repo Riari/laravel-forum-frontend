@@ -43,7 +43,7 @@ abstract class BaseController extends Controller implements ReceiverContract
     }
 
     /**
-     * Handle a response from the dispatcher.
+     * Handle a response from the dispatcher for the given request.
      *
      * @param  Request  $request
      * @param  Response  $response

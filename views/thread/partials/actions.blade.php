@@ -1,9 +1,9 @@
 <div class="panel panel-default" data-actions>
     <div class="panel-heading">
         <span class="glyphicon glyphicon-option-vertical"></span>
-        <a href="#" data-toggle="collapse" data-target=".collapse">{{ trans('forum::threads.actions') }}</a>
+        <a href="#" data-toggle="collapse" data-target=".collapse.thread-actions">{{ trans('forum::threads.actions') }}</a>
     </div>
-    <div class="collapse">
+    <div class="collapse thread-actions">
         <div class="panel-body">
             <div class="form-group">
                 <label for="action">{{ trans_choice('forum::general.actions', 1) }}</label>

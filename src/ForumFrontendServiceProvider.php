@@ -86,7 +86,7 @@ class ForumFrontendServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
-            "{$this->baseDir}views/" => base_path('/resources/views/vendor/forum')
+            "{$this->baseDir}views/" => base_path('resources/views/vendor/forum')
         ], 'views');
     }
 
