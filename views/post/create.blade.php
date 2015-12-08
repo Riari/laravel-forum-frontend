@@ -9,10 +9,10 @@
         @include ('forum::post.partials.excerpt')
     @endif
 
-    <form method="POST" action="{{ route('forum.post.store', $thread->id) }}">
+    <form method="POST" action="{{ Forum::route('post.store', $thread) }}">
         {!! csrf_field() !!}
         @if (!is_null($post))
-            <input type="hidden" name="post_id" value="{{ $post->id }}">
+            <input type="hidden" name="post" value="{{ $post->id }}">
         @endif
 
         <div class="form-group">

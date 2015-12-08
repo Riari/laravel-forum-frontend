@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Riari\Forum\Frontend\Events\UserViewingCategory;
 use Riari\Forum\Frontend\Events\UserViewingIndex;
-use Riari\Forum\Frontend\Forum;
+use Riari\Forum\Frontend\Support\Forum;
 
 class CategoryController extends BaseController
 {
@@ -59,37 +59,35 @@ class CategoryController extends BaseController
 
         Forum::alert('success', 'categories.created');
 
-        return redirect($category->route);
+        return redirect(Forum::route('category.show', $category));
     }
 
     /**
      * PATCH: Update a category.
      *
-     * @param  int  $id
      * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
         $action = $request->input('action');
 
-        $category = $this->api("category.{$action}", $id)->parameters($request->all())->patch();
+        $category = $this->api("category.{$action}", $request->route('category'))->parameters($request->all())->patch();
 
         Forum::alert('success', 'categories.updated', 1);
 
-        return redirect($category->route);
+        return redirect(Forum::route('category.show', $category));
     }
 
     /**
      * DELETE: Delete a category.
      *
-     * @param  int  $id
      * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id, Request $request)
+    public function destroy(Request $request)
     {
-        $this->api('category.delete', $id)->parameters($request->all())->delete();
+        $this->api('category.delete', $request->route('category'))->parameters($request->all())->delete();
 
         Forum::alert('success', 'categories.deleted', 1);
 

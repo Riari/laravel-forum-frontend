@@ -21,29 +21,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Closure: Process alert messages
+    | Utility Class
     |--------------------------------------------------------------------------
     |
-    | Change this if your app has its own user alert/notification system.
-    | Note: Remember to override the forum views to remove the default alerts
-    | if you do not use them.
+    | Here we specify the namespace of the class to use for various utility
+    | methods. This is automatically aliased to 'Forum' for ease of use in
+    | views.
     |
     */
 
-    /**
-     * @param  string  $type    The type of alert ('success' or 'warning')
-     * @param  string  $message The alert message
-     */
-    'process_alert' => function ($type, $message)
-    {
-        $alerts = [];
-        if (Session::has('alerts')) {
-            $alerts = Session::get('alerts');
-        }
-
-        array_push($alerts, compact('type', 'message'));
-
-        Session::flash('alerts', $alerts);
-    },
+    'utility_class' => Riari\Forum\Frontend\Support\Forum::class
 
 ];

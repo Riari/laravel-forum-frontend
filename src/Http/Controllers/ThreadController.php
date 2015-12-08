@@ -9,7 +9,7 @@ use Riari\Forum\Frontend\Events\UserCreatingThread;
 use Riari\Forum\Frontend\Events\UserMarkingNew;
 use Riari\Forum\Frontend\Events\UserViewingNew;
 use Riari\Forum\Frontend\Events\UserViewingThread;
-use Riari\Forum\Frontend\Forum;
+use Riari\Forum\Frontend\Support\Forum;
 
 class ThreadController extends BaseController
 {
@@ -40,6 +40,7 @@ class ThreadController extends BaseController
     /**
      * PATCH: Mark new/updated threads as read for the current user.
      *
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
     public function markNew(Request $request)
@@ -53,7 +54,7 @@ class ThreadController extends BaseController
 
             if ($category) {
                 Forum::alert('success', 'categories.marked_read', 0, ['category' => $category->title]);
-                return redirect($category->route);
+                return redirect(Forum::route('category.show', $category));
             }
         }
 
@@ -64,14 +65,12 @@ class ThreadController extends BaseController
     /**
      * GET: Return a thread view.
      *
-     * @param  int  $categoryID
-     * @param  string  $categorySlug
-     * @param  int  $threadID
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($categoryID, $categorySlug, $threadID)
+    public function show(Request $request)
     {
-        $thread = $this->api('thread.fetch', $threadID)
+        $thread = $this->api('thread.fetch', $request->route('thread'))
                        ->parameters(['include_deleted' => auth()->check()])
                        ->get();
 
@@ -90,17 +89,17 @@ class ThreadController extends BaseController
     /**
      * GET: Return a 'create thread' view.
      *
-     * @param  int  $categoryID
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create($categoryID)
+    public function create(Request $request)
     {
-        $category = $this->api('category.fetch', $categoryID)->get();
+        $category = $this->api('category.fetch', $request->route('category'))->get();
 
         if (!$category->threadsEnabled) {
             Forum::alert('warning', 'categories.threads_disabled');
 
-            return redirect($category->route);
+            return redirect(Forum::route('category.show', $category));
         }
 
         event(new UserCreatingThread($category));
@@ -121,7 +120,7 @@ class ThreadController extends BaseController
         if (!$category->threadsEnabled) {
             Forum::alert('warning', 'categories.threads_disabled');
 
-            return redirect($category->route);
+            return redirect(Forum::route('category.show', $category));
         }
 
         $thread = [
@@ -135,35 +134,33 @@ class ThreadController extends BaseController
 
         Forum::alert('success', 'threads.created');
 
-        return redirect($thread->route);
+        return redirect(Forum::route('thread.show', $thread));
     }
 
     /**
      * PATCH: Update a thread.
      *
-     * @param  int  $id
      * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
         $action = $request->input('action');
 
-        $thread = $this->api("thread.{$action}", $id)->parameters($request->all())->patch();
+        $thread = $this->api("thread.{$action}", $request->route('thread'))->parameters($request->all())->patch();
 
         Forum::alert('success', 'threads.updated', 1);
 
-        return redirect($thread->route);
+        return redirect(Forum::route('thread.show', $thread));
     }
 
     /**
      * DELETE: Delete a thread.
      *
-     * @param  int  $id
      * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id, Request $request)
+    public function destroy(Request $request)
     {
         $this->validate($request, ['action' => 'in:delete,permadelete']);
 
@@ -175,11 +172,11 @@ class ThreadController extends BaseController
             $parameters += ['force' => 1];
         }
 
-        $thread = $this->api('thread.delete', $id)->parameters($parameters)->delete();
+        $thread = $this->api('thread.delete', $request->route('thread'))->parameters($parameters)->delete();
 
         Forum::alert('success', 'threads.deleted', 1);
 
-        return redirect($permanent ? $thread->category->route : $thread->route);
+        return redirect($permanent ? Forum::route('category.show', $thread->category) : Forum::route('thread.show', $thread));
     }
 
     /**

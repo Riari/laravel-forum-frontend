@@ -4,7 +4,7 @@
         @include ('forum::partials.breadcrumb-categories', ['category' => $category])
     @endif
     @if (isset($thread) && $thread)
-        <li><a href="{{ $thread->route }}">{{ $thread->title }}</a></li>
+        <li><a href="{{ Forum::route('thread.show', $thread) }}">{{ $thread->title }}</a></li>
     @endif
     @if (isset($breadcrumb_other) && $breadcrumb_other)
         <li>{!! $breadcrumb_other !!}</li>

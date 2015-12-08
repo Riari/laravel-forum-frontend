@@ -7,12 +7,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Riari\Forum\Frontend\Events\UserViewingThread;
-use Riari\Forum\Frontend\Forum;
 use Riari\Forum\Frontend\Listeners\MarkThreadAsRead;
-use Riari\Forum\Models\Post;
-use Riari\Forum\Models\Thread;
-use Riari\Forum\Models\Observers\PostObserver;
-use Riari\Forum\Models\Observers\ThreadObserver;
 
 class ForumFrontendServiceProvider extends ServiceProvider
 {
@@ -42,17 +37,7 @@ class ForumFrontendServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->registerFacades();
-    }
-
-    /**
-     * Bootstrap the application events.
+     * Perform post-registration booting of services.
      *
      * @param  Router  $router
      * @param  DispatcherContract  $events
@@ -64,6 +49,7 @@ class ForumFrontendServiceProvider extends ServiceProvider
 
         $this->setPublishables();
         $this->loadStaticFiles();
+        $this->registerAliases();
 
         $this->namespace = config('forum.frontend.controllers.namespace');
 
@@ -73,6 +59,13 @@ class ForumFrontendServiceProvider extends ServiceProvider
             $this->loadRoutes($router);
         }
     }
+
+    /**
+     * Register bindings in the container.
+     *
+     * @return void
+     */
+    public function register() {}
 
     /**
      * Define files published by this package.
@@ -102,7 +95,7 @@ class ForumFrontendServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package listeners.
+     * Register event listeners.
      *
      * @param  DispatcherContract  $events
      * @return void
@@ -117,21 +110,14 @@ class ForumFrontendServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package facades.
+     * Register aliases.
      *
      * @return void
      */
-    public function registerFacades()
+    public function registerAliases()
     {
-        // Bind the forum facade
-        $this->app->bind('forum', function()
-        {
-            return new Forum;
-        });
-
-        // Create facade alias
         $loader = AliasLoader::getInstance();
-        $loader->alias('Forum', 'Riari\Forum\Frontend\Support\Facades\Forum');
+        $loader->alias('Forum', config('forum.frontend.utility_class'));
     }
 
     /**

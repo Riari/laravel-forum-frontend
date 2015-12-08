@@ -7,7 +7,7 @@
 
     @if (!$post->isFirst)
         @can ('delete', $post)
-            <form action="{{ route('forum.post.update', $post->id) }}" method="POST" data-actions-form>
+            <form action="{{ Forum::route('post.update', $post) }}" method="POST" data-actions-form>
                 {!! csrf_field() !!}
                 {!! method_field('delete') !!}
 
@@ -22,7 +22,7 @@
         @include ('forum::post.partials.excerpt', ['post' => $post->parent])
     @endif
 
-    <form method="POST" action="{{ route('forum.post.update', $post->id) }}">
+    <form method="POST" action="{{ Forum::route('post.update', $post) }}">
         {!! csrf_field() !!}
         {!! method_field('patch') !!}
 

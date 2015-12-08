@@ -17,7 +17,7 @@
         <hr>
 
         @can ('manageCategories')
-            <form action="{{ route('forum.category.update', $category->id) }}" method="POST" data-actions-form>
+            <form action="{{ Forum::route('category.update', $category) }}" method="POST" data-actions-form>
                 {!! csrf_field() !!}
                 {!! method_field('patch') !!}
 
@@ -48,7 +48,7 @@
             <div class="col-xs-4">
                 @if ($category->threadsEnabled)
                     @can ('createThreads', $category)
-                        <a href="{{ $category->newThreadRoute }}" class="btn btn-primary">{{ trans('forum::threads.new_thread') }}</a>
+                        <a href="{{ Forum::route('thread.create', $category) }}" class="btn btn-primary">{{ trans('forum::threads.new_thread') }}</a>
                     @endcan
                 @endif
             </div>
@@ -58,7 +58,7 @@
         </div>
 
         @can ('manageThreads', $category)
-            <form action="{{ route('forum.bulk.thread.update') }}" method="POST" data-actions-form>
+            <form action="{{ Forum::route('bulk.thread.update') }}" method="POST" data-actions-form>
                 {!! csrf_field() !!}
                 {!! method_field('delete') !!}
         @endcan
@@ -95,7 +95,7 @@
                                         @endif
                                     </span>
                                     <p class="lead">
-                                        <a href="{{ $thread->route }}">{{ $thread->title }}</a>
+                                        <a href="{{ Forum::route('thread.show', $thread) }}">{{ $thread->title }}</a>
                                     </p>
                                     <p>{{ $thread->authorName }} <span class="text-muted">({{ $thread->posted }})</span></p>
                                 </td>
@@ -108,7 +108,7 @@
                                     <td class="text-right">
                                         {{ $thread->lastPost->authorName }}
                                         <p class="text-muted">({{ $thread->lastPost->posted }})</p>
-                                        <a href="{{ $thread->lastPostUrl }}" class="btn btn-primary btn-xs">{{ trans('forum::posts.view') }} &raquo;</a>
+                                        <a href="{{ Forum::route('thread.show', $thread->lastPost) }}" class="btn btn-primary btn-xs">{{ trans('forum::posts.view') }} &raquo;</a>
                                     </td>
                                 @endif
                                 @can ('manageThreads', $category)
@@ -125,7 +125,7 @@
                             </td>
                             <td class="text-right" colspan="3">
                                 @can ('createThreads', $category)
-                                    <a href="{{ $category->newThreadRoute }}">{{ trans('forum::threads.post_the_first') }}</a>
+                                    <a href="{{ Forum::route('thread.create', $category) }}">{{ trans('forum::threads.post_the_first') }}</a>
                                 @endcan
                             </td>
                         </tr>
@@ -143,7 +143,7 @@
             <div class="col-xs-4">
                 @if ($category->threadsEnabled)
                     @can ('createThreads', $category)
-                        <a href="{{ $category->newThreadRoute }}" class="btn btn-primary">{{ trans('forum::threads.new_thread') }}</a>
+                        <a href="{{ Forum::route('thread.create', $category) }}" class="btn btn-primary">{{ trans('forum::threads.new_thread') }}</a>
                     @endcan
                 @endif
             </div>
@@ -156,7 +156,7 @@
             @can ('markNewThreadsAsRead')
                 <hr>
                 <div class="text-center">
-                    <form action="{{ route('forum.mark-new') }}" method="POST" data-confirm>
+                    <form action="{{ Forum::route('mark-new') }}" method="POST" data-confirm>
                         {!! csrf_field() !!}
                         {!! method_field('patch') !!}
                         <input type="hidden" name="category_id" value="{{ $category->id }}">

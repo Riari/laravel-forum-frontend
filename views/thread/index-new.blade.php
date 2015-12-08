@@ -28,11 +28,11 @@
                                 @endif
                             </span>
                             <p class="lead">
-                                <a href="{{ $thread->route }}">{{ $thread->title }}</a>
+                                <a href="{{ Forum::route('thread.show', $thread) }}">{{ $thread->title }}</a>
                             </p>
                             <p>
                                 {{ $thread->authorName }}
-                                <span class="text-muted">(<em><a href="{{ $thread->category->route }}">{{ $thread->category->title }}</a></em>, {{ $thread->posted }})</span>
+                                <span class="text-muted">(<em><a href="{{ Forum::route('category.show', $thread->category) }}">{{ $thread->category->title }}</a></em>, {{ $thread->posted }})</span>
                             </p>
                         </td>
                         <td>
@@ -41,7 +41,7 @@
                         <td class="text-right">
                             {{ $thread->lastPost->authorName }}
                             <p class="text-muted">({{ $thread->lastPost->posted }})</p>
-                            <a href="{{ $thread->lastPostUrl }}" class="btn btn-primary btn-xs">{{ trans('forum::posts.view') }} &raquo;</a>
+                            <a href="{{ Forum::route('thread.show', $thread->lastPost) }}" class="btn btn-primary btn-xs">{{ trans('forum::posts.view') }} &raquo;</a>
                         </td>
                     </tr>
                 @endforeach
@@ -50,7 +50,7 @@
 
         @can ('markNewThreadsAsRead')
             <div class="text-center">
-                <form action="{{ route('forum.mark-new') }}" method="POST" data-confirm>
+                <form action="{{ Forum::route('mark-new') }}" method="POST" data-confirm>
                     {!! csrf_field() !!}
                     {!! method_field('patch') !!}
                     <button class="btn btn-primary btn-small">{{ trans('forum::general.mark_read') }}</button>

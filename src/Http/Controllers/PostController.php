@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Riari\Forum\Frontend\Events\UserCreatingPost;
 use Riari\Forum\Frontend\Events\UserEditingPost;
 use Riari\Forum\Frontend\Events\UserViewingPost;
-use Riari\Forum\Frontend\Forum;
+use Riari\Forum\Frontend\Support\Forum;
 
 class PostController extends BaseController
 {
@@ -36,15 +36,15 @@ class PostController extends BaseController
      */
     public function create(Request $request)
     {
-        $thread = $this->api('thread.fetch', $request->route('thread'))->parameters($request->only('post_id') + ['with' => ['posts']])->get();
+        $thread = $this->api('thread.fetch', $request->route('thread'))->parameters(['with' => ['posts']])->get();
 
         $this->authorize('reply', $thread);
 
         event(new UserCreatingPost($thread));
 
         $post = null;
-        if ($request->has('post_id')) {
-            $post = $thread->posts->find($request->input('post_id'));
+        if ($request->has('post')) {
+            $post = $thread->posts->find($request->input('post'));
         }
 
         return view('forum::post.create', compact('thread', 'post'));
@@ -63,14 +63,14 @@ class PostController extends BaseController
         $this->authorize('reply', $thread);
 
         $post = null;
-        if ($request->has('post_id')) {
-            $post = $thread->posts->find($request->input('post_id'));
+        if ($request->has('post')) {
+            $post = $thread->posts->find($request->input('post'));
         }
 
         $post = $this->api('post.store')->parameters([
             'thread_id' => $thread->id,
             'author_id' => auth()->user()->id,
-            'post_id'   => (is_null($post)) ? 0 : $post->id,
+            'post_id'   => is_null($post) ? 0 : $post->id,
             'content'   => $request->input('content')
         ])->post();
 
@@ -78,22 +78,18 @@ class PostController extends BaseController
 
         Forum::alert('success', 'general.reply_added');
 
-        return redirect($post->url);
+        return redirect(Forum::route('thread.show', $post));
     }
 
     /**
      * GET: Return an 'edit post' view.
      *
-     * @param  int  $categoryID
-     * @param  string  $categorySlug
-     * @param  int  $threadID
-     * @param  string  $threadSlug
-     * @param  int  $postID
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($categoryID, $categorySlug, $threadID, $threadSlug, $postID)
+    public function edit(Request $request)
     {
-        $post = $this->api('post.fetch', $postID)->get();
+        $post = $this->api('post.fetch', $request->route('post'))->get();
 
         event(new UserEditingPost($post));
 
@@ -112,45 +108,43 @@ class PostController extends BaseController
     /**
      * PATCH: Update an existing post.
      *
-     * @param  int  $postID
      * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($postID, Request $request)
+    public function update(Request $request)
     {
-        $post = $this->api('post.fetch', $postID)->get();
+        $post = $this->api('post.fetch', $request->route('post'))->get();
 
         $this->authorize('edit', $post);
 
-        $post = $this->api('post.update', $postID)->parameters($request->only('content'))->patch();
+        $post = $this->api('post.update', $request->route('post'))->parameters($request->only('content'))->patch();
 
         Forum::alert('success', 'posts.updated');
 
-        return redirect($post->url);
+        return redirect(Forum::route('thread.show', $post));
     }
 
     /**
      * DELETE: Delete a post.
      *
-     * @param  int  $id
      * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id, Request $request)
+    public function destroy(Request $request)
     {
         $permanent = !config('forum.preferences.soft_deletes');
 
         $parameters = $request->all();
 
         if ($permanent) {
-            $parameters += ['force' => 1];
+            $parameters['force'] = 1;
         }
 
-        $post = $this->api('post.delete', $id)->parameters($parameters)->delete();
+        $post = $this->api('post.delete', $request->route('post'))->parameters($parameters)->delete();
 
         Forum::alert('success', 'posts.deleted', 1);
 
-        return redirect($post->thread->route);
+        return redirect(Forum::route('thread.show', $post->thread));
     }
 
     /**
@@ -166,7 +160,7 @@ class PostController extends BaseController
         $parameters = $request->all();
 
         if (!config('forum.preferences.soft_deletes') || ($request->input('action') == 'permadelete')) {
-            $parameters += ['force' => 1];
+            $parameters['force'] = 1;
         }
 
         $posts = $this->api('bulk.post.delete')->parameters($parameters)->delete();

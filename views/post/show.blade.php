@@ -4,7 +4,7 @@
     <div id="post">
         <h2>{{ trans('forum::posts.view') }} ({{ $thread->title }})</h2>
 
-        <a href="{{ $post->url }}" class="btn btn-default">&laquo; {{ trans('forum::threads.view') }}</a>
+        <a href="{{ Forum::route('thread.show', $thread) }}" class="btn btn-default">&laquo; {{ trans('forum::threads.view') }}</a>
 
         <table class="table">
             <thead>

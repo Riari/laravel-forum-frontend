@@ -7,7 +7,7 @@
             <p>
                 <strong>
                     {{ trans('forum::general.response_to', ['item' => $post->parent->authorName]) }}
-                    (<a href="{{ $post->parent->url }}">{{ trans('forum::posts.view') }}</a>):
+                    (<a href="{{ Forum::route('post.show', $post->parent) }}">{{ trans('forum::posts.view') }}</a>):
                 </strong>
             </p>
             <blockquote>
@@ -26,7 +26,7 @@
     <td>
         @if (!$post->trashed())
             @can ('edit', $post)
-                <a href="{{ $post->editRoute }}">{{ trans('forum::general.edit') }}</a>
+                <a href="{{ Forum::route('post.edit', $post) }}">{{ trans('forum::general.edit') }}</a>
             @endcan
         @endif
     </td>
@@ -36,12 +36,14 @@
             | {{ trans('forum::general.last_updated') }} {{ $post->updated }}
         @endif
         <span class="pull-right">
-            <a href="{{ $post->url }}">#{{ $post->id }}</a>
+            <a href="{{ Forum::route('thread.show', $post) }}">#{{ $post->id }}</a>
             @if (!$post->trashed())
-                - <a href="{{ $post->replyRoute }}">{{ trans('forum::general.reply') }}</a>
+                @can ('reply', $post->thread)
+                    - <a href="{{ Forum::route('post.create', $post) }}">{{ trans('forum::general.reply') }}</a>
+                @endcan
             @endif
-            @if (Request::fullUrl() != $post->route)
-                - <a href="{{ $post->route }}">{{ trans('forum::posts.view') }}</a>
+            @if (Request::fullUrl() != Forum::route('post.show', $post))
+                - <a href="{{ Forum::route('post.show', $post) }}">{{ trans('forum::posts.view') }}</a>
             @endif
             @if (isset($thread))
                 @can ('deletePosts', $thread)

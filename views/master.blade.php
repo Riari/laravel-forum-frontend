@@ -65,13 +65,13 @@
     }
 
     function setActionStates() {
-        forms.each(function () {
+        forms.each(function() {
             var form = $(this);
             var method = form.find('input[name=_method]');
             var selected = form.find('select[name=action] option:selected');
             var depends = form.find('[data-depends]');
 
-            selected.each(function () {
+            selected.each(function() {
                 if ($(this).attr('data-method')) {
                     method.val($(this).data('method'));
                 } else {
@@ -79,7 +79,7 @@
                 }
             });
 
-            depends.each(function () {
+            depends.each(function() {
                 (selected.val() == $(this).data('depends')) ? $(this).removeClass('hidden') : $(this).addClass('hidden');
             });
         });
@@ -93,7 +93,7 @@
     checkboxes.change(setSelectionStates);
     actions.change(setActionStates);
 
-    forms.submit(function () {
+    forms.submit(function() {
         var action = $(this).find('[data-actions]').find(':selected');
 
         if (action.is('[data-confirm]')) {
@@ -103,7 +103,7 @@
         return true;
     });
 
-    $('form[data-confirm]').submit(function () {
+    $('form[data-confirm]').submit(function() {
         return confirm(confirmString);
     });
     </script>

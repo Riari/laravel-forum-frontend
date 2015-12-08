@@ -18,7 +18,7 @@
         <hr>
 
         @can ('manageThreads', $category)
-            <form action="{{ route('forum.thread.update', $thread->id) }}" method="POST" data-actions-form>
+            <form action="{{ Forum::route('thread.update', $thread) }}" method="POST" data-actions-form>
                 {!! csrf_field() !!}
                 {!! method_field('patch') !!}
 
@@ -27,7 +27,7 @@
         @endcan
 
         @can ('deletePosts', $thread)
-            <form action="{{ route('forum.bulk.post.update') }}" method="POST" data-actions-form>
+            <form action="{{ Forum::route('bulk.post.update') }}" method="POST" data-actions-form>
                 {!! csrf_field() !!}
                 {!! method_field('delete') !!}
         @endcan
@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-xs-4">
                     <div class="btn-group" role="group">
-                        <a href="{{ $thread->replyRoute }}" class="btn btn-primary">{{ trans('forum::general.new_reply') }}</a>
+                        <a href="{{ Forum::route('post.create', $thread) }}" class="btn btn-primary">{{ trans('forum::general.new_reply') }}</a>
                         <a href="#quick-reply" class="btn btn-primary">{{ trans('forum::general.quick_reply') }}</a>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
         @can ('reply', $thread)
             <h3>{{ trans('forum::general.quick_reply') }}</h3>
             <div id="quick-reply">
-                <form method="POST" action="{{ route('forum.post.store', $thread->id) }}">
+                <form method="POST" action="{{ Forum::route('post.store', $thread) }}">
                     {!! csrf_field() !!}
 
                     <div class="form-group">
