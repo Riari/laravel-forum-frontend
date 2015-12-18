@@ -19,7 +19,7 @@ class CategoryController extends BaseController
     public function index(Request $request)
     {
         $categories = $this->api('category.index')
-                           ->parameters(['where' => ['category_id' => 0], 'orderBy' => 'weight', 'with' => ['children']])
+                           ->parameters(['where' => ['category_id' => 0], 'orderBy' => 'weight', 'orderDir' => 'asc', 'with' => ['children']])
                            ->get();
 
         event(new UserViewingIndex);
