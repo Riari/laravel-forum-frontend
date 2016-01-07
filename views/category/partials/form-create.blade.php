@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label for="category-id">{{ trans_choice('forum::categories.category', 1) }}</label>
                     <select name="category_id" id="category-id" class="form-control">
-                        <option value="">({{ trans('forum::general.none') }})</option>
+                        <option value="0">({{ trans('forum::general.none') }})</option>
                         @include ('forum::category.partials.options')
                     </select>
                 </div>
