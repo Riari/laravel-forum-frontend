@@ -129,8 +129,12 @@ class ForumFrontendServiceProvider extends ServiceProvider
     protected function loadRoutes(Router $router)
     {
         $dir = $this->baseDir;
-        $router->group(['namespace' => $this->namespace, 'as' => 'forum.', 'prefix' => config('forum.routing.root')], function ($r) use ($dir)
-        {
+        $router->group([
+            'namespace' => $this->namespace,
+            'middleware' => config('forum.routing.middleware'),
+            'as' => 'forum.',
+            'prefix' => config('forum.routing.root')
+        ], function ($r) use ($dir) {
             $controllers = config('forum.frontend.controllers');
             require "{$dir}routes.php";
         });
