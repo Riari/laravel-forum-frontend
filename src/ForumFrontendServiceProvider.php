@@ -131,7 +131,7 @@ class ForumFrontendServiceProvider extends ServiceProvider
         $dir = $this->baseDir;
         $router->group([
             'namespace' => $this->namespace,
-            'middleware' => config('forum.routing.middleware'),
+            'middleware' => config('forum.frontend.middleware'),
             'as' => 'forum.',
             'prefix' => config('forum.routing.root')
         ], function ($r) use ($dir) {
