@@ -84,7 +84,7 @@ class Forum
                     if ($route == 'forum.thread.show') {
                         // The requested route is for a thread; we need to specify the page number and append a hash for
                         // the post
-                        $params['page'] = ceil($model->thread->lastPage / $model->thread->getPerPage());
+                        $params['page'] = ceil(($model->thread->posts()->lists('id')->search($model->id) + 1) / $model->getPerPage());
                         $append = "#post-{$model->id}";
                     } else {
                         // Other post routes require the post parameter
