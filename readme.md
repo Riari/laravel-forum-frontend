@@ -1,4 +1,4 @@
-**This package provides a conventional front-end for [riari/laravel-forum](https://github.com/Riari/laravel-forum). It should be installed along with the forum unless a custom or alternative front-end implementation is required.**
+**This package provides a conventional front-end for [riari/laravel-forum](https://github.com/Riari/laravel-forum) 3.0 and above. It should be installed along with the forum unless a custom or alternative front-end implementation is required.**
 
 **Complete documentation is available on [teamteatime.net](http://teamteatime.net/docs/laravel-forum/3.0/front-end/introduction.md).**
 
