@@ -129,6 +129,7 @@ class ForumFrontendServiceProvider extends ServiceProvider
     {
         $router->group([
             'namespace' => $this->namespace,
+            'middleware' => config('forum.frontend.middleware'),
             'as' => config('forum.routing.as'),
             'prefix' => config('forum.routing.prefix')
         ], function ($router) {
