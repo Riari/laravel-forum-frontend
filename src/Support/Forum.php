@@ -85,7 +85,7 @@ class Forum
                         // The requested route is for a thread; we need to specify the page number and append a hash for
                         // the post
                         $params['page'] = ceil($model->sequenceNumber / $model->getPerPage());
-                        $append = "#post-{$model->id}";
+                        $append = "#post-{$model->sequenceNumber}";
                     } else {
                         // Other post routes require the post parameter
                         $params['post'] = $model->id;
