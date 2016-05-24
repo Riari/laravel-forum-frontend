@@ -57,6 +57,10 @@ abstract class BaseController extends Controller implements ReceiverContract
             );
         }
 
+        if ($response->getStatusCode() == 403) {
+            abort(403);
+        }
+
         return $response->isNotFound() ? abort(404) : $response->getOriginalContent();
     }
 
