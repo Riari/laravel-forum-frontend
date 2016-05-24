@@ -1,6 +1,4 @@
-<?php
-
-namespace Riari\Forum\Frontend\Http\Controllers;
+<?php namespace Riari\Forum\Frontend\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;

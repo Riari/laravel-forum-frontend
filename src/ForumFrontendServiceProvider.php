@@ -1,6 +1,4 @@
-<?php
-
-namespace Riari\Forum\Frontend;
+<?php namespace Riari\Forum\Frontend;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\AliasLoader;
@@ -8,6 +6,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Riari\Forum\Frontend\Events\UserViewingThread;
 use Riari\Forum\Frontend\Listeners\MarkThreadAsRead;
+use Riari\Forum\Frontend\Support\Forum;
 
 class ForumFrontendServiceProvider extends ServiceProvider
 {
@@ -55,7 +54,7 @@ class ForumFrontendServiceProvider extends ServiceProvider
 
         $this->registerListeners($events);
 
-        if (config('forum.routing.enabled')) {
+        if (config('forum.frontend.routes')) {
             $this->loadRoutes($router);
         }
     }
@@ -128,15 +127,12 @@ class ForumFrontendServiceProvider extends ServiceProvider
      */
     protected function loadRoutes(Router $router)
     {
-        $dir = $this->baseDir;
         $router->group([
             'namespace' => $this->namespace,
-            'middleware' => config('forum.frontend.middleware'),
-            'as' => 'forum.',
-            'prefix' => config('forum.routing.root')
-        ], function ($r) use ($dir) {
-            $controllers = config('forum.frontend.controllers');
-            require "{$dir}routes.php";
+            'as' => config('forum.routing.as'),
+            'prefix' => config('forum.routing.prefix')
+        ], function ($router) {
+            Forum::routes($router);
         });
     }
 }

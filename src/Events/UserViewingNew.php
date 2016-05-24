@@ -1,6 +1,4 @@
-<?php
-
-namespace Riari\Forum\Frontend\Events;
+<?php namespace Riari\Forum\Frontend\Events;
 
 use Illuminate\Database\Eloquent\Collection;
 
