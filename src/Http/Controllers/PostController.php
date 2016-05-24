@@ -67,7 +67,7 @@ class PostController extends BaseController
 
         $post = $this->api('post.store')->parameters([
             'thread_id' => $thread->id,
-            'author_id' => auth()->user()->id,
+            'author_id' => auth()->user()->getKey(),
             'post_id'   => is_null($post) ? 0 : $post->id,
             'content'   => $request->input('content')
         ])->post();

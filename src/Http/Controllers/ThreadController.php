@@ -122,7 +122,7 @@ class ThreadController extends BaseController
         }
 
         $thread = [
-            'author_id'     => auth()->user()->id,
+            'author_id'     => auth()->user()->getKey(),
             'category_id'   => $category->id,
             'title'         => $request->input('title'),
             'content'       => $request->input('content')
