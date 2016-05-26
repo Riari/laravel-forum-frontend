@@ -1,5 +1,6 @@
 <?php namespace Riari\Forum\Frontend\Http\Controllers;
 
+use Forum;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Exception\HttpResponseException;
@@ -9,7 +10,6 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 use Riari\Forum\API\Dispatcher;
 use Riari\Forum\Contracts\API\ReceiverContract;
-use Riari\Forum\Frontend\Support\Forum;
 
 abstract class BaseController extends Controller implements ReceiverContract
 {

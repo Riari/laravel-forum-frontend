@@ -1,5 +1,6 @@
 <?php namespace Riari\Forum\Frontend\Http\Controllers;
 
+use Forum;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
@@ -7,7 +8,6 @@ use Riari\Forum\Frontend\Events\UserCreatingThread;
 use Riari\Forum\Frontend\Events\UserMarkingNew;
 use Riari\Forum\Frontend\Events\UserViewingNew;
 use Riari\Forum\Frontend\Events\UserViewingThread;
-use Riari\Forum\Frontend\Support\Forum;
 
 class ThreadController extends BaseController
 {
