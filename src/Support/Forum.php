@@ -62,23 +62,23 @@ class Forum
                 case $model instanceof Category:
                     $params = [
                         'category'      => $model->id,
-                        'category_slug' => self::slugify($model->title)
+                        'category_slug' => static::slugify($model->title)
                     ];
                     break;
                 case $model instanceof Thread:
                     $params = [
                         'category'      => $model->category->id,
-                        'category_slug' => self::slugify($model->category->title),
+                        'category_slug' => static::slugify($model->category->title),
                         'thread'        => $model->id,
-                        'thread_slug'   => self::slugify($model->title)
+                        'thread_slug'   => static::slugify($model->title)
                     ];
                     break;
                 case $model instanceof Post:
                     $params = [
                         'category'      => $model->thread->category->id,
-                        'category_slug' => self::slugify($model->thread->category->title),
+                        'category_slug' => static::slugify($model->thread->category->title),
                         'thread'        => $model->thread->id,
-                        'thread_slug'   => self::slugify($model->thread->title)
+                        'thread_slug'   => static::slugify($model->thread->title)
                     ];
 
                     if ($route == config('forum.routing.as') . 'thread.show') {
