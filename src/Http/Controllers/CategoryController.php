@@ -89,6 +89,6 @@ class CategoryController extends BaseController
 
         Forum::alert('success', 'categories.deleted', 1);
 
-        return redirect(config('forum.routing.root'));
+        return redirect(config('forum.routing.prefix'));
     }
 }

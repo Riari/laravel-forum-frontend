@@ -57,7 +57,7 @@ class ThreadController extends BaseController
         }
 
         Forum::alert('success', 'threads.marked_read');
-        return redirect(config('forum.routing.root'));
+        return redirect(config('forum.routing.prefix'));
     }
 
     /**
