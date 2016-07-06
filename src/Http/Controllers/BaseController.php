@@ -38,7 +38,7 @@ abstract class BaseController extends Controller implements ReceiverContract
     protected function api($route, $parameters = [])
     {
         $prefix = config('forum.routing.as');
-        return $this->dispatcher->route("{$prefix}.api.{$route}", $parameters);
+        return $this->dispatcher->route("{$prefix}api.{$route}", $parameters);
     }
 
     /**
