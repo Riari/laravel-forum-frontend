@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-xs-8 text-right">
-                    {!! $thread->postsPaginated->render() !!}
+                    {!! $posts->render() !!}
                 </div>
             </div>
         @endcan
@@ -63,7 +63,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($thread->postsPaginated as $post)
+                @foreach ($posts as $post)
                     @include ('forum::post.partials.list', compact('post'))
                 @endforeach
             </tbody>
@@ -74,7 +74,7 @@
             </form>
         @endcan
 
-        {!! $thread->postsPaginated->render() !!}
+        {!! $posts->render() !!}
 
         @can ('reply', $thread)
             <h3>{{ trans('forum::general.quick_reply') }}</h3>

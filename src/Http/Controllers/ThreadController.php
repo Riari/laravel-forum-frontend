@@ -81,7 +81,9 @@ class ThreadController extends BaseController
             $categories = $this->api('category.index')->parameters(['where' => ['category_id' => 0]], ['where' => ['enable_threads' => 1]])->get();
         }
 
-        return view('forum::thread.show', compact('categories', 'category', 'thread'));
+        $posts = $thread->postsPaginated;
+
+        return view('forum::thread.show', compact('categories', 'category', 'thread', 'posts'));
     }
 
     /**

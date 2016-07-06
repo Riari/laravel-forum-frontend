@@ -53,7 +53,7 @@
                 @endif
             </div>
             <div class="col-xs-8 text-right">
-                {!! $category->threadsPaginated->render() !!}
+                {!! $threads->render() !!}
             </div>
         </div>
 
@@ -76,8 +76,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (!$category->threadsPaginated->isEmpty())
-                        @foreach ($category->threadsPaginated as $thread)
+                    @if (!$threads->isEmpty())
+                        @foreach ($threads as $thread)
                             <tr class="{{ $thread->trashed() ? "deleted" : "" }}">
                                 <td>
                                     <span class="pull-right">
@@ -148,7 +148,7 @@
                 @endif
             </div>
             <div class="col-xs-8 text-right">
-                {!! $category->threadsPaginated->render() !!}
+                {!! $threads->render() !!}
             </div>
         </div>
 
