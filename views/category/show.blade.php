@@ -103,7 +103,7 @@
                                     <td colspan="2">&nbsp;</td>
                                 @else
                                     <td class="text-right">
-                                        {{ $thread->replyCount }}
+                                        {{ $thread->reply_count }}
                                     </td>
                                     <td class="text-right">
                                         {{ $thread->lastPost->authorName }}

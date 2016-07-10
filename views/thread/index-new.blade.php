@@ -36,7 +36,7 @@
                             </p>
                         </td>
                         <td>
-                            {{ $thread->replyCount }}
+                            {{ $thread->reply_count }}
                         </td>
                         <td class="text-right">
                             {{ $thread->lastPost->authorName }}

@@ -4,8 +4,8 @@
         <span class="text-muted">{{ $category->description }}</span>
     </td>
     @if ($category->threadsEnabled)
-        <td>{{ $category->threadCount }}</td>
-        <td>{{ $category->postCount }}</td>
+        <td>{{ $category->thread_count }}</td>
+        <td>{{ $category->post_count }}</td>
         <td>
             @if ($category->newestThread)
                 <a href="{{ Forum::route('thread.show', $category->newestThread) }}">
