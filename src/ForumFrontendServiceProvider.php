@@ -1,4 +1,6 @@
-<?php namespace Riari\Forum\Frontend;
+<?php
+
+namespace Riari\Forum\Frontend;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\AliasLoader;
@@ -10,20 +12,6 @@ use Riari\Forum\Frontend\Support\Forum;
 
 class ForumFrontendServiceProvider extends ServiceProvider
 {
-    /**
-     * The namespace for the package controllers.
-     *
-     * @var string
-     */
-    protected $namespace;
-
-    /**
-     * The base directory for the package.
-     *
-     * @var string
-     */
-    protected $baseDir;
-
     /**
      * The event listener mappings for the application.
      *
@@ -44,13 +32,9 @@ class ForumFrontendServiceProvider extends ServiceProvider
      */
     public function boot(Router $router, DispatcherContract $events)
     {
-        $this->baseDir = __DIR__.'/../';
-
         $this->setPublishables();
         $this->loadStaticFiles();
         $this->registerAliases();
-
-        $this->namespace = config('forum.frontend.controllers.namespace');
 
         $this->registerListeners($events);
 
@@ -73,12 +57,14 @@ class ForumFrontendServiceProvider extends ServiceProvider
      */
     protected function setPublishables()
     {
+        $baseDir = $this->getBaseDir();
+
         $this->publishes([
-            "{$this->baseDir}config/frontend.php" => config_path('forum.frontend.php')
+            "{$baseDir}config/frontend.php" => config_path('forum.frontend.php')
         ], 'config');
 
         $this->publishes([
-            "{$this->baseDir}views/" => base_path('resources/views/vendor/forum')
+            "{$baseDir}views/" => base_path('resources/views/vendor/forum')
         ], 'views');
     }
 
@@ -89,8 +75,9 @@ class ForumFrontendServiceProvider extends ServiceProvider
      */
     protected function loadStaticFiles()
     {
-        $this->mergeConfigFrom("{$this->baseDir}config/frontend.php", "forum.frontend");
-        $this->loadViewsFrom("{$this->baseDir}views", 'forum');
+        $baseDir = $this->getBaseDir();
+        $this->mergeConfigFrom("{$baseDir}config/frontend.php", "forum.frontend");
+        $this->loadViewsFrom("{$baseDir}views", 'forum');
     }
 
     /**
@@ -128,12 +115,32 @@ class ForumFrontendServiceProvider extends ServiceProvider
     protected function loadRoutes(Router $router)
     {
         $router->group([
-            'namespace' => $this->namespace,
+            'namespace' => $this->getFrontendNamespace(),
             'middleware' => config('forum.frontend.middleware'),
             'as' => config('forum.routing.as'),
             'prefix' => config('forum.routing.prefix')
         ], function ($router) {
             Forum::routes($router);
         });
+    }
+
+    /**
+     * The namespace for the package controllers.
+     *
+     * @return string
+     */
+    protected function getFrontendNamespace()
+    {
+        return config('forum.frontend.controllers.namespace');
+    }
+
+    /**
+     * The base directory for the package.
+     *
+     * @return string
+     */
+    protected function getBaseDir()
+    {
+        return __DIR__.'/../';
     }
 }
