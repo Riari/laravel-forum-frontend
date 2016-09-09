@@ -40,4 +40,4 @@ Views are published to `resources/views/vendor/forum`. The simplest way to integ
 
 #### Events
 
-The package includes a variety of [events](http://laravel.com/docs/5.1/events) for user interactions such as viewing threads. Refer to [src/Events](https://github.com/Riari/laravel-forum-frontend/tree/master/src/Events) for a full list.
+The package includes a variety of [events](http://laravel.com/docs/5.1/events) for user interactions such as viewing threads. Refer to [src/Events](https://github.com/Riari/laravel-forum-frontend/tree/1.0/src/Events) for a full list.
