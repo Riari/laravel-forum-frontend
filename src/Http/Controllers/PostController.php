@@ -95,7 +95,7 @@ class PostController extends BaseController
             return abort(404);
         }
 
-        $this->authorize($post);
+        $this->authorize('edit', $post);
 
         $thread = $post->thread;
         $category = $post->thread->category;
