@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr class="category">
                     @include ('forum::category.partials.list', ['titleClass' => 'lead'])
                 </tr>
                 @if (!$category->children->isEmpty())

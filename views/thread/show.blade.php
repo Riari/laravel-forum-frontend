@@ -32,19 +32,19 @@
                 {!! method_field('delete') !!}
         @endcan
 
-        @can ('reply', $thread)
-            <div class="row">
-                <div class="col-xs-4">
+        <div class="row">
+            <div class="col-xs-4">
+                @can ('reply', $thread)
                     <div class="btn-group" role="group">
                         <a href="{{ Forum::route('post.create', $thread) }}" class="btn btn-primary">{{ trans('forum::general.new_reply') }}</a>
                         <a href="#quick-reply" class="btn btn-primary">{{ trans('forum::general.quick_reply') }}</a>
                     </div>
-                </div>
-                <div class="col-xs-8 text-right">
-                    {!! $posts->render() !!}
-                </div>
+                @endcan
             </div>
-        @endcan
+            <div class="col-xs-8 text-right">
+                {!! $posts->render() !!}
+            </div>
+        </div>
 
         <table class="table {{ $thread->trashed() ? 'deleted' : '' }}">
             <thead>

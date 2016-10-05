@@ -1,8 +1,8 @@
-<tr id="post-{{ $post->sequence }}" class="{{ $post->trashed() ? 'deleted' : '' }}">
-    <td>
+<tr id="post-{{ $post->sequence }}" class="{{ $post->trashed() ? 'deleted' : '' }}" class="post-body">
+    <td class="author-info">
         <strong>{!! $post->authorName !!}</strong>
     </td>
-    <td>
+    <td class="content">
         @if (!is_null($post->parent))
             <p>
                 <strong>
@@ -22,7 +22,7 @@
         @endif
     </td>
 </tr>
-<tr>
+<tr class="post-footer">
     <td>
         @if (!$post->trashed())
             @can ('edit', $post)
