@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "riari/laravel-forum": "3.0 - 4.0"
+        "riari/laravel-forum": "3.0 - 4.1"
     },
     "autoload": {
         "psr-4": {
