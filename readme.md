@@ -34,6 +34,8 @@ Once the package is installed, provided you are logged in, you can visit <your d
 
 The `forum.frontend` config file defines the controllers used by the package as well as a closure used to process alert messages to be displayed to the user.
 
+**Laravel 5.2** set the 'middleware' configuration to 'web' ('middleware'=>'web') if using Laravel 5.2 default middleware.
+
 #### Views
 
 Views are published to `resources/views/vendor/forum`. The simplest way to integrate the forum with your existing design is to edit the **master** view, remove undesired markup and make it extend your application's main layout with `@extends`. Note that the master view does pull in jQuery and Bootstrap 3 by default, and includes some jQuery-based JavaScript to support some of the forum frontend features. You may wish to move it elsewhere or re-write it in your own way.
