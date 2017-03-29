@@ -78,6 +78,13 @@
 
         @can ('reply', $thread)
             <h3>{{ trans('forum::general.quick_reply') }}</h3>
+            @if (count($errors) > 0)
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
             <div id="quick-reply">
                 <form method="POST" action="{{ Forum::route('post.store', $thread) }}">
                     {!! csrf_field() !!}
