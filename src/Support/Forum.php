@@ -154,6 +154,14 @@ class Forum
      */
     public static function slugify($string)
     {
-        return str_slug($string, '-');
+        $string = preg_replace('!['.preg_quote('-').']+!u', '-', $string);
+
+        // Remove all characters that are not the separator, letters, numbers, or whitespace.
+        $string = preg_replace('![^'.preg_quote('-').'\pL\pN\s\p{Thai}]+!u', '', mb_strtolower($string));
+
+        // Replace all separator characters and whitespace by a single separator
+        $string = preg_replace('!['.preg_quote('-').'\s]+!u', '-', $string);
+
+        return trim($string, '-');
     }
 }
