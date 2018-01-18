@@ -160,6 +160,8 @@ class PostController extends BaseController
         if (!config('forum.preferences.soft_deletes') || ($request->input('action') == 'permadelete')) {
             $parameters['force'] = 1;
         }
+		else
+			$parameters['force'] = 0;
 
         $posts = $this->api('bulk.post.delete')->parameters($parameters)->delete();
 
