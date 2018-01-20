@@ -42,7 +42,7 @@
                     - <a href="{{ Forum::route('post.create', $post) }}">{{ trans('forum::general.reply') }}</a>
                 @endcan
             @endif
-            @if (Request::fullUrl() != Forum::route('post.show', $post))
+            @if (Request::fullUrl() != Forum::route('post.show', $post) && !$post->trashed())
                 - <a href="{{ Forum::route('post.show', $post) }}">{{ trans('forum::posts.view') }}</a>
             @endif
             @if (isset($thread))
