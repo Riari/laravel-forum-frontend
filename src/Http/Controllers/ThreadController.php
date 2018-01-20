@@ -194,6 +194,8 @@ class ThreadController extends BaseController
         if (!config('forum.preferences.soft_deletes') || ($request->input('action') == 'permadelete')) {
             $parameters += ['force' => 1];
         }
+		else
+			$parameters['force'] = 0;
 
         $threads = $this->api('bulk.thread.delete')->parameters($parameters)->delete();
 
