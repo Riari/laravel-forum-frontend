@@ -167,10 +167,7 @@ class ThreadController extends BaseController
         $permanent = !config('forum.preferences.soft_deletes') || ($request->input('action') == 'permadelete');
 
         $parameters = $request->all();
-
-        if ($permanent) {
-            $parameters += ['force' => 1];
-        }
+        $parameters['force'] = $permanent ? 1 : 0;
 
         $thread = $this->api('thread.delete', $request->route('thread'))->parameters($parameters)->delete();
 
@@ -191,11 +188,10 @@ class ThreadController extends BaseController
 
         $parameters = $request->all();
 
+        $parameters['force'] = 0;
         if (!config('forum.preferences.soft_deletes') || ($request->input('action') == 'permadelete')) {
-            $parameters += ['force' => 1];
+            $parameters['force'] = 1;
         }
-		else
-			$parameters['force'] = 0;
 
         $threads = $this->api('bulk.thread.delete')->parameters($parameters)->delete();
 
