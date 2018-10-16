@@ -6,12 +6,12 @@
     "authors": [
         {
             "name": "Riari",
-            "email": "hello@ricko.me"
+            "email": "riari@teamteatime.net"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "riari/laravel-forum": "3.0 - 4.1"
+        "riari/laravel-forum": "3.0 - 4.2"
     },
     "autoload": {
         "psr-4": {
