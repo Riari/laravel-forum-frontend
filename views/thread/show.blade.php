@@ -4,13 +4,13 @@
     <div id="thread">
         <h2>
             @if ($thread->trashed())
-                <span class="label label-danger">{{ trans('forum::general.deleted') }}</span>
+                <span class="badge badge-danger">{{ trans('forum::general.deleted') }}</span>
             @endif
             @if ($thread->locked)
-                <span class="label label-warning">{{ trans('forum::threads.locked') }}</span>
+                <span class="badge badge-warning">{{ trans('forum::threads.locked') }}</span>
             @endif
             @if ($thread->pinned)
-                <span class="label label-info">{{ trans('forum::threads.pinned') }}</span>
+                <span class="badge badge-info">{{ trans('forum::threads.pinned') }}</span>
             @endif
             {{ $thread->title }}
         </h2>
@@ -33,7 +33,7 @@
         @endcan
 
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col col-xs-4">
                 @can ('reply', $thread)
                     <div class="btn-group" role="group">
                         <a href="{{ Forum::route('post.create', $thread) }}" class="btn btn-primary">{{ trans('forum::general.new_reply') }}</a>
@@ -41,7 +41,7 @@
                     </div>
                 @endcan
             </div>
-            <div class="col-xs-8 text-right">
+            <div class="col col-xs-8 text-right">
                 {!! $posts->render() !!}
             </div>
         </div>
@@ -49,7 +49,7 @@
         <table class="table {{ $thread->trashed() ? 'deleted' : '' }}">
             <thead>
                 <tr>
-                    <th class="col-md-2">
+                    <th class="col col-md-2">
                         {{ trans('forum::general.author') }}
                     </th>
                     <th>

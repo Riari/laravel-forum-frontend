@@ -9,29 +9,24 @@
     <h2>{{ trans('forum::general.index') }}</h2>
 
     @foreach ($categories as $category)
-        <table class="table table-index">
-            <thead>
-                <tr>
-                    <th>{{ trans_choice('forum::categories.category', 1) }}</th>
-                    <th class="col-md-2">{{ trans_choice('forum::threads.thread', 2) }}</th>
-                    <th class="col-md-2">{{ trans_choice('forum::posts.post', 2) }}</th>
-                    <th class="col-md-2">{{ trans('forum::threads.newest') }}</th>
-                    <th class="col-md-2">{{ trans('forum::posts.last') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="category">
-                    @include ('forum::category.partials.list', ['titleClass' => 'lead'])
-                </tr>
-                @if (!$category->children->isEmpty())
-                    <tr>
-                        <th colspan="5">{{ trans('forum::categories.subcategories') }}</th>
-                    </tr>
-                    @foreach ($category->children as $subcategory)
-                        @include ('forum::category.partials.list', ['category' => $subcategory])
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
+        @include ('forum::category.partials.list', ['titleClass' => 'lead'])
+
+        @if (!$category->children->isEmpty())
+            <ul class="list-group text-center text-md-left">
+                @foreach ($category->children as $subcategory)
+                    <li class="list-group-item">
+                        <a href="{{ Forum::route('category.show', $subcategory) }}">{{ $subcategory->title }}</a>
+                        <span class="badge badge-light">
+                            {{ trans_choice('forum::threads.thread', 2) }}: {{ $subcategory->thread_count }}
+                        </span>
+                        <span class="badge badge-light">
+                            {{ trans_choice('forum::posts.post', 2) }}: {{ $subcategory->post_count }}
+                        </span>
+                    </li>
+                @endforeach
+            </ul>
+
+            <hr>
+        @endif
     @endforeach
 @stop

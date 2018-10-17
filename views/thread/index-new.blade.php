@@ -1,4 +1,4 @@
-@extends ('forum::master', ['breadcrumb_other' => trans('forum::threads.new_updated')])
+@extends ('forum::master', ['thread' => null, 'breadcrumb_other' => trans('forum::threads.new_updated')])
 
 @section ('content')
   <div id="new-posts">
@@ -9,8 +9,8 @@
               <thead>
                   <tr>
                       <th>{{ trans('forum::general.subject') }}</th>
-                      <th class="col-md-2">{{ trans('forum::general.replies') }}</th>
-                      <th class="col-md-2 text-right">{{ trans('forum::posts.last') }}</th>
+                      <th class="col col-md-2">{{ trans('forum::general.replies') }}</th>
+                      <th class="col col-md-2 text-right">{{ trans('forum::posts.last') }}</th>
                   </tr>
               </thead>
               <tbody>
@@ -19,13 +19,13 @@
                           <td>
                               <span class="pull-right">
                                   @if ($thread->locked)
-                                      <span class="label label-danger">{{ trans('forum::threads.locked') }}</span>
+                                      <span class="badge badge-danger">{{ trans('forum::threads.locked') }}</span>
                                   @endif
                                   @if ($thread->pinned)
-                                      <span class="label label-info">{{ trans('forum::threads.pinned') }}</span>
+                                      <span class="badge badge-info">{{ trans('forum::threads.pinned') }}</span>
                                   @endif
                                   @if ($thread->userReadStatus)
-                                      <span class="label label-primary">{{ trans($thread->userReadStatus) }}</span>
+                                      <span class="badge badge-primary">{{ trans($thread->userReadStatus) }}</span>
                                   @endif
                               </span>
                               <p class="lead">

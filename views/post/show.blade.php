@@ -9,7 +9,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th class="col-md-2">
+                    <th class="col col-md-2">
                         {{ trans('forum::general.author') }}
                     </th>
                     <th>
