@@ -1,6 +1,6 @@
 {
-    "name": "riari/laravel-forum-frontend",
-    "description": "A frontend for riari/laravel-forum providing views written with Bootstrap 3",
+    "name": "erwanl21/laravel-forum-frontend",
+    "description": "A frontend forked from riari/laravel-forum for riari/laravel-forum providing views written with Bootstrap 3",
     "keywords": ["laravel", "laravel-4", "laravel-5", "forum", "discuss", "frontend"],
     "license": "MIT",
     "authors": [
